@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+  <head>
+    <title>Shopping Cart</title>
+
+    <script src="../js/angular182.js"></script>
+    <script src="Cart_Controller.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+
+  <body ng-controller="CartController" ng-init="updateTotal()">
+    <table>
+      <caption>
+        <b>MY SHOPPING CART</b>
+        <br />
+        <br />
+      </caption>
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Qty</th>
+          <th>Unit Price</th>
+          <th>Unit Price($)</th>
+          <th>Line Total</th>
+          <th>Total: ${{ updateTotal() }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Add Code for the table rows-->
+        <tr ng-repeat="item in defaultItems">
+          <td>
+            <input class="rounded" ng-model="item.title" size="15" />
+          </td>
+          <td>
+            <input class="rounded" ng-model="item.qty" size="2" />
+          </td>
+          <td>
+            <input class="rounded" ng-model="item.price" size="4" />
+          </td>
+          <td>{{item.price | currency}}</td>
+          <td>{{item.price * item.qty | currency}}</td>
+          <td>
+            <button ng-click="removeItem($index)">Remove</button>
+          </td>
+        </tr>
+
+        <tr>
+          <th colspan="2"><button ng-click="addItem()">New</button></th>
+          <th colspan="1">
+            <button ng-click="undo()" ng-disabled="disableUndo">Undo</button>
+          </th>
+          <th colspan="1">
+            <button ng-click="redo()" ng-disabled="disableRedo">Redo</button>
+          </th>
+          <th colspan="2"><button ng-click="saveItems()">Save</button></th>
+        </tr>
+      </tbody>
+    </table>
+  </body>
+</html>
